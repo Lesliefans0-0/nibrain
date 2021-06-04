@@ -9,12 +9,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def read_data(time_series_file, events_file, ic_id):
-
+    # read data from time series files and ev files
     time_series_df= pd.read_csv(time_series_file, header=None)
     events_df = pd.read_csv(events_file, header=0, sep='\t')
     # print(time_series)
     # print(events_df)
-
     events_list = []
     for trial_type in events_df['trial_type']:
         if trial_type == 3 or trial_type == 4:
@@ -29,13 +28,13 @@ def read_data(time_series_file, events_file, ic_id):
     return events_series, time_series
 
 def compute_corr(events_series, time_series):
-
+    # compute correlation
     corr = time_series.corr(events_series)
     # print(corr)
     return corr
 
 def figure_output(events_series, time_series, corr):
-
+    # create figures about time series and ev series
     plt.figure()
     time_series.plot(kind='line', grid=True, label='S1', style='--', title='r=' + corr)
     events_series.plot(label='S2')
